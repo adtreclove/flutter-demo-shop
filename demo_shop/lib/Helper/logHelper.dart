@@ -18,10 +18,7 @@ enum LogColor {
 const String _reset = '\x1B[0m';
 
 /// Prints [message] to the console only in debug mode, in the given [color].
-///
-/// Usage:
-///   logD('User logged in', color: LogColor.green);
-///   logD('Something went wrong', color: LogColor.red);
+
 void coloredLog(
   Object? message, {
   LogColor color = LogColor.white,

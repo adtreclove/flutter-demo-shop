@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/legacy.dart';
 
 /// Defines the drawer menu items and their order.
-enum DrawerItem { home, featured, search, cart, profile, logout }
+enum DrawerItem { home, category, search, cart, profile, logout }
 
 @immutable
 class DrawerState {
@@ -35,19 +35,11 @@ class DrawerState {
 class DrawerNotifier extends StateNotifier<DrawerState> {
   DrawerNotifier() : super(const DrawerState());
 
-  // ─────────────────────────────────────────
-  // Sync state with actual Scaffold drawer
-  // ─────────────────────────────────────────
-
   void setOpenState(bool isOpen) {
     if (state.isOpen == isOpen) return;
 
     state = state.copyWith(isOpen: isOpen);
   }
-
-  // ─────────────────────────────────────────
-  // Open
-  // ─────────────────────────────────────────
 
   void open() {
     final scaffold = scaffoldKey.currentState;
@@ -70,10 +62,6 @@ class DrawerNotifier extends StateNotifier<DrawerState> {
     coloredLog('drawer opened', color: LogColor.green, tag: 'DrawerNotifier');
   }
 
-  // ─────────────────────────────────────────
-  // Close
-  // ─────────────────────────────────────────
-
   void close() {
     final scaffold = scaffoldKey.currentState;
 
@@ -95,9 +83,7 @@ class DrawerNotifier extends StateNotifier<DrawerState> {
     coloredLog('drawer closed', color: LogColor.green, tag: 'DrawerNotifier');
   }
 
-  // ─────────────────────────────────────────
   // Toggle
-  // ─────────────────────────────────────────
 
   void toggle() {
     final scaffold = scaffoldKey.currentState;
@@ -118,10 +104,7 @@ class DrawerNotifier extends StateNotifier<DrawerState> {
     }
   }
 
-  // ─────────────────────────────────────────
   // Select menu item
-  // ─────────────────────────────────────────
-
   void selectItem(DrawerItem item, {bool closeOnSelect = true}) {
     state = state.copyWith(selectedItem: item);
 

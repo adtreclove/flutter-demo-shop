@@ -49,9 +49,6 @@ abstract final class AppTheme {
     useMaterial3: true,
     brightness: Brightness.dark,
 
-    // ─────────────────────────────────────
-    // COLORS
-    // ─────────────────────────────────────
     colorScheme: const ColorScheme.dark(
       primary: AppColors.primary,
       onPrimary: Colors.white,
@@ -68,9 +65,6 @@ abstract final class AppTheme {
 
     scaffoldBackgroundColor: AppColors.background,
 
-    // ─────────────────────────────────────
-    // APP BAR
-    // ─────────────────────────────────────
     appBarTheme: const AppBarTheme(
       backgroundColor: AppColors.background,
       foregroundColor: AppColors.textPrimary,
@@ -78,9 +72,6 @@ abstract final class AppTheme {
       centerTitle: false,
     ),
 
-    // ─────────────────────────────────────
-    // CARDS
-    // ─────────────────────────────────────
     cardTheme: CardThemeData(
       color: AppColors.surface,
       elevation: 0,
@@ -91,9 +82,6 @@ abstract final class AppTheme {
       ),
     ),
 
-    // ─────────────────────────────────────
-    // INPUT FIELDS
-    // ─────────────────────────────────────
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
       fillColor: AppColors.surface,
@@ -130,9 +118,6 @@ abstract final class AppTheme {
       ),
     ),
 
-    // ─────────────────────────────────────
-    // ELEVATED BUTTON
-    // ─────────────────────────────────────
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         backgroundColor: AppColors.primary,
@@ -148,9 +133,6 @@ abstract final class AppTheme {
       ),
     ),
 
-    // ─────────────────────────────────────
-    // OUTLINED BUTTON
-    // ─────────────────────────────────────
     outlinedButtonTheme: OutlinedButtonThemeData(
       style: OutlinedButton.styleFrom(
         foregroundColor: AppColors.textPrimary,
@@ -163,30 +145,18 @@ abstract final class AppTheme {
       ),
     ),
 
-    // ─────────────────────────────────────
-    // TEXT BUTTON
-    // ─────────────────────────────────────
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(foregroundColor: AppColors.primary),
     ),
 
-    // ─────────────────────────────────────
-    // DIVIDERS
-    // ─────────────────────────────────────
     dividerTheme: const DividerThemeData(
       color: AppColors.border,
       thickness: 1,
       space: 1,
     ),
 
-    // ─────────────────────────────────────
-    // ICONS
-    // ─────────────────────────────────────
     iconTheme: const IconThemeData(color: AppColors.textPrimary, size: 24),
 
-    // ─────────────────────────────────────
-    // TYPOGRAPHY
-    // ─────────────────────────────────────
     textTheme: const TextTheme(
       displayLarge: TextStyle(
         color: AppColors.textPrimary,

@@ -5,6 +5,7 @@ import 'package:demo_shop/Helper/logHelper.dart';
 import 'package:demo_shop/appTheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class CustomDrawer extends ConsumerWidget {
   const CustomDrawer({super.key});
@@ -60,27 +61,17 @@ class CustomDrawer extends ConsumerWidget {
 
                         const SizedBox(width: 14),
 
-                        const Expanded(
+                        Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
                                 'ALGO',
-                                style: TextStyle(
+                                style: GoogleFonts.montserrat(
                                   color: AppColors.textPrimary,
                                   fontSize: 20,
                                   fontWeight: FontWeight.w700,
                                   letterSpacing: 2,
-                                ),
-                              ),
-                              SizedBox(height: 3),
-                              Text(
-                                'YOUR STYLE. YOUR WORLD.',
-                                style: TextStyle(
-                                  color: AppColors.textSecondary,
-                                  fontSize: 9,
-                                  fontWeight: FontWeight.w500,
-                                  letterSpacing: 1.2,
                                 ),
                               ),
                             ],
@@ -100,11 +91,11 @@ class CustomDrawer extends ConsumerWidget {
                     child: ListView(
                       padding: const EdgeInsets.symmetric(horizontal: 14),
                       children: [
-                        const Padding(
+                        Padding(
                           padding: EdgeInsets.only(left: 12, bottom: 10),
                           child: Text(
                             'MENU',
-                            style: TextStyle(
+                            style: GoogleFonts.montserrat(
                               color: AppColors.textSecondary,
                               fontSize: 11,
                               fontWeight: FontWeight.w600,
@@ -149,11 +140,11 @@ class CustomDrawer extends ConsumerWidget {
 
                         const SizedBox(height: 20),
 
-                        const Padding(
+                        Padding(
                           padding: EdgeInsets.only(left: 12, bottom: 10),
                           child: Text(
                             'ACCOUNT',
-                            style: TextStyle(
+                            style: GoogleFonts.montserrat(
                               color: AppColors.textSecondary,
                               fontSize: 11,
                               fontWeight: FontWeight.w600,
@@ -193,11 +184,11 @@ class CustomDrawer extends ConsumerWidget {
                   ),
 
                   // VERSION
-                  const Padding(
+                  Padding(
                     padding: EdgeInsets.only(bottom: 18),
                     child: Text(
                       'ALGO • v1.0.0',
-                      style: TextStyle(
+                      style: GoogleFonts.montserrat(
                         color: AppColors.textDisabled,
                         fontSize: 10,
                         letterSpacing: 1,
@@ -282,7 +273,7 @@ class _DrawerItem extends StatelessWidget {
                 Expanded(
                   child: Text(
                     _labelFor(item),
-                    style: TextStyle(
+                    style: GoogleFonts.montserrat(
                       color: isSelected ? accentColor : AppColors.textPrimary,
                       fontSize: 15,
                       fontWeight: isSelected
@@ -324,8 +315,8 @@ class _DrawerItem extends StatelessWidget {
       case DrawerItem.search:
         return 'Search';
 
-      case DrawerItem.featured:
-        return 'Featured';
+      case DrawerItem.category:
+        return 'Categories';
 
       case DrawerItem.cart:
         return 'Cart';
@@ -346,8 +337,8 @@ class _DrawerItem extends StatelessWidget {
       case DrawerItem.search:
         return Icons.search_outlined;
 
-      case DrawerItem.featured:
-        return Icons.star_border_outlined;
+      case DrawerItem.category:
+        return Icons.view_list_outlined;
 
       case DrawerItem.cart:
         return Icons.shopping_cart_outlined;

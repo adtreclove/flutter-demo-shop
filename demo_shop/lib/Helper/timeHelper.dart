@@ -1,4 +1,3 @@
-/// Returns a greeting string based on the current time of day.
 String getGreeting({DateTime? time}) {
   final now = time ?? DateTime.now();
   final hour = now.hour;

@@ -1,5 +1,7 @@
 import 'package:demo_shop/Controler/drawer_controller.dart';
 import 'package:demo_shop/Core/Navigation/scaffoldKey.dart';
+import 'package:demo_shop/Screens/CartScreen.dart';
+import 'package:demo_shop/Screens/CategoryScreen.dart';
 import 'package:demo_shop/Screens/HomeScreen.dart';
 import 'package:demo_shop/Widgets/Globals/CustomAppBar.dart';
 import 'package:demo_shop/Widgets/Globals/Drawer/CustomDrawer.dart';
@@ -15,15 +17,11 @@ class AppShell extends ConsumerWidget {
 
     return Scaffold(
       key: scaffoldKey,
-
       onDrawerChanged: (isOpen) {
         ref.read(drawerProvider.notifier).setOpenState(isOpen);
       },
-
       drawer: const CustomDrawer(),
-
       appBar: const CustomAppBar(),
-
       body: AnimatedContainer(
         duration: const Duration(milliseconds: 300),
         curve: Curves.easeInOut,
@@ -49,14 +47,14 @@ class _CurrentPage extends StatelessWidget {
       case DrawerItem.home:
         return const HomeScreen();
 
-      case DrawerItem.featured:
-        return const SizedBox.shrink();
+      case DrawerItem.category:
+        return const CategoryScreen();
 
       case DrawerItem.search:
         return const SizedBox.shrink();
 
       case DrawerItem.cart:
-        return const SizedBox.shrink();
+        return const CartScreen();
 
       case DrawerItem.profile:
         return const SizedBox.shrink();
