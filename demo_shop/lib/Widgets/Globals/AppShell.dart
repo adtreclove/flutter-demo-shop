@@ -4,7 +4,7 @@ import 'package:demo_shop/Screens/CartScreen.dart';
 import 'package:demo_shop/Screens/CategoryScreen.dart';
 import 'package:demo_shop/Screens/HomeScreen.dart';
 import 'package:demo_shop/Screens/SearchScreen.dart';
-import 'package:demo_shop/Widgets/Globals/CustomAppBar.dart';
+import 'package:demo_shop/Widgets/Globals/AppBar/CustomAppBar.dart';
 import 'package:demo_shop/Widgets/Globals/Drawer/CustomDrawer.dart';
 import 'package:demo_shop/appTheme.dart';
 import 'package:flutter/material.dart';

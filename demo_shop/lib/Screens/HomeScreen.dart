@@ -6,6 +6,7 @@ import 'package:demo_shop/Models/ProductQuery.dart';
 import 'package:demo_shop/Screens/ProductDetailScreen.dart';
 import 'package:demo_shop/Widgets/Products/HighlightedProductCard.dart';
 import 'package:demo_shop/Widgets/Products/ProductCard.dart';
+import 'package:demo_shop/Widgets/Sections/BestsellerSection.dart';
 import 'package:demo_shop/appTheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -41,7 +42,7 @@ class HomeScreen extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _buildHeader(user),
-          SizedBox(height: 20),
+          SizedBox(height: 50),
           // New Products slidable
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 30.0),
@@ -124,6 +125,12 @@ class HomeScreen extends ConsumerWidget {
               ),
             ),
           ),
+
+          Padding(
+            padding: const EdgeInsets.only(left: 10, top: 50),
+            child: const BestsellerSection(),
+          ),
+          const SizedBox(height: 40),
         ],
       ),
     );
@@ -137,7 +144,7 @@ class HomeScreen extends ConsumerWidget {
           child: Text(
             getGreeting(),
             style: GoogleFonts.montserrat(
-              color: AppColors.textSecondary,
+              color: AppColors.textPrimary,
               fontSize: 24,
               fontWeight: FontWeight.bold,
             ),

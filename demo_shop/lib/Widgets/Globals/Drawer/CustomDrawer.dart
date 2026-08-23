@@ -37,50 +37,25 @@ class CustomDrawer extends ConsumerWidget {
             child: SafeArea(
               child: Column(
                 children: [
-                  // HEADER
+                  // HEADER - Shop name
                   Padding(
                     padding: const EdgeInsets.fromLTRB(24, 28, 20, 28),
-                    child: Row(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // Logo
-                        Container(
-                          width: 48,
-                          height: 48,
-                          decoration: BoxDecoration(
-                            color: AppColors.glassPrimary,
-                            borderRadius: BorderRadius.circular(16),
-                            border: Border.all(
-                              color: AppColors.primary.withValues(alpha: 0.25),
-                            ),
-                          ),
-                          child: const Icon(
-                            Icons.shopping_bag_outlined,
-                            color: AppColors.primary,
-                            size: 24,
-                          ),
-                        ),
-
-                        const SizedBox(width: 14),
-
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'ALGO',
-                                style: GoogleFonts.montserrat(
-                                  color: AppColors.textPrimary,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w700,
-                                  letterSpacing: 2,
-                                ),
-                              ),
-                            ],
+                        Text(
+                          'ALGO',
+                          style: GoogleFonts.montserrat(
+                            color: AppColors.textPrimary,
+                            fontSize: 35,
+                            fontWeight: FontWeight.w700,
+                            letterSpacing: 2,
                           ),
                         ),
                       ],
                     ),
                   ),
+
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: Divider(color: AppColors.glassBorder, height: 1),
@@ -98,9 +73,9 @@ class CustomDrawer extends ConsumerWidget {
                             'MENU',
                             style: GoogleFonts.montserrat(
                               color: AppColors.textSecondary,
-                              fontSize: 11,
+                              fontSize: 13,
                               fontWeight: FontWeight.w600,
-                              letterSpacing: 1.5,
+                              letterSpacing: 2.5,
                             ),
                           ),
                         ),
@@ -142,14 +117,14 @@ class CustomDrawer extends ConsumerWidget {
                         const SizedBox(height: 20),
 
                         Padding(
-                          padding: EdgeInsets.only(left: 12, bottom: 10),
+                          padding: const EdgeInsets.only(left: 12, bottom: 10),
                           child: Text(
                             'ACCOUNT',
                             style: GoogleFonts.montserrat(
                               color: AppColors.textSecondary,
-                              fontSize: 11,
+                              fontSize: 13,
                               fontWeight: FontWeight.w600,
-                              letterSpacing: 1.5,
+                              letterSpacing: 2.5,
                             ),
                           ),
                         ),
