@@ -15,11 +15,14 @@ class CartScreen extends ConsumerWidget {
     final total = ref.watch(cartTotalProvider);
 
     if (items.isEmpty) {
-      return const Center(
-        child: Text(
-          'Dein Warenkorb ist leer',
-          style: TextStyle(fontSize: 16, color: AppColors.textPrimary),
-        ),
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Spacer(),
+          const Text("Your cart is empty"),
+          Spacer(),
+          _buildBottomBar(context, ref, total, false),
+        ],
       );
     }
 
@@ -33,12 +36,17 @@ class CartScreen extends ConsumerWidget {
             itemBuilder: (context, index) => _CartItemTile(item: items[index]),
           ),
         ),
-        _buildBottomBar(context, ref, total),
+        _buildBottomBar(context, ref, total, true),
       ],
     );
   }
 
-  Widget _buildBottomBar(BuildContext context, WidgetRef ref, double total) {
+  Widget _buildBottomBar(
+    BuildContext context,
+    WidgetRef ref,
+    double total,
+    bool canCheckout,
+  ) {
     return Container(
       padding: const EdgeInsets.fromLTRB(20, 16, 20, 20),
       decoration: BoxDecoration(
@@ -87,7 +95,8 @@ class CartScreen extends ConsumerWidget {
               width: double.infinity,
               height: 52,
               child: AnimatedBorderButton(
-                onPressed: () => _handleCheckout(context, ref),
+                onPressed: () =>
+                    canCheckout ? _handleCheckout(context, ref) : null,
                 child: Text(
                   'Checkout',
                   style: GoogleFonts.montserrat(

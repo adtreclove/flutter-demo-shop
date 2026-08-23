@@ -3,8 +3,10 @@ import 'package:demo_shop/Core/Navigation/scaffoldKey.dart';
 import 'package:demo_shop/Screens/CartScreen.dart';
 import 'package:demo_shop/Screens/CategoryScreen.dart';
 import 'package:demo_shop/Screens/HomeScreen.dart';
+import 'package:demo_shop/Screens/SearchScreen.dart';
 import 'package:demo_shop/Widgets/Globals/CustomAppBar.dart';
 import 'package:demo_shop/Widgets/Globals/Drawer/CustomDrawer.dart';
+import 'package:demo_shop/appTheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -51,7 +53,7 @@ class _CurrentPage extends StatelessWidget {
         return const CategoryScreen();
 
       case DrawerItem.search:
-        return const SizedBox.shrink();
+        return const SearchScreen();
 
       case DrawerItem.cart:
         return const CartScreen();

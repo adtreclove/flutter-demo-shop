@@ -1,6 +1,5 @@
 import 'package:demo_shop/Controler/cart_controller.dart';
 import 'package:demo_shop/Controler/drawer_controller.dart';
-import 'package:demo_shop/Helper/logHelper.dart';
 import 'package:demo_shop/appTheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -32,7 +31,9 @@ class CustomAppBar extends ConsumerWidget implements PreferredSizeWidget {
           ),
           IconButton(
             padding: EdgeInsets.only(left: 5, right: 10),
-            onPressed: () {},
+            onPressed: () {
+              ref.read(drawerProvider.notifier).selectItem(DrawerItem.cart);
+            },
             icon: const Icon(Icons.shopping_cart_outlined),
           ),
         ],

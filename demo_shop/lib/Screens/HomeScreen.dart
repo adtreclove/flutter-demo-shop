@@ -1,3 +1,4 @@
+import 'package:demo_shop/Controler/auth_controller.dart';
 import 'package:demo_shop/Controler/product_controller.dart';
 import 'package:demo_shop/Helper/designHelper.dart';
 import 'package:demo_shop/Helper/timeHelper.dart';
@@ -10,16 +11,36 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final categoryAsync = ref.watch(
+      productsProvider(const ProductQuery(category: "womens-watches")),
+    );
+    final specificProductAsync = ref.watch(productProvider("155"));
+    final userAsync = ref.watch(authProvider);
+    String user = userAsync.when(
+      data: (user) {
+        if (user != null) {
+          return user.firstName;
+        }
+        return "";
+      },
+      error: (Object error, StackTrace stackTrace) {
+        return "";
+      },
+      loading: () {
+        return "";
+      },
+    );
+
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildHeader(),
+          _buildHeader(user),
           SizedBox(height: 20),
           // New Products slidable
           Padding(
@@ -39,84 +60,68 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                Consumer(
-                  builder:
-                      (BuildContext context, WidgetRef ref, Widget? child) {
-                        return ref
-                            .watch(
-                              productsProvider(
-                                const ProductQuery(category: "womens-watches"),
+                categoryAsync.when(
+                  skipError: true,
+                  skipLoadingOnRefresh: true,
+                  skipLoadingOnReload: true,
+                  data: (products) {
+                    return SizedBox(
+                      height: 250,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: products.length,
+                        itemBuilder: (context, index) {
+                          final product = products[index];
+                          return Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: ProductCard(
+                              imageUrl: product.thumbnail,
+                              cornerText: product.formattedPrice,
+                              heroTag: product.id,
+                              onTap: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      ProductDetailScreen(product: product),
+                                ),
                               ),
-                            )
-                            .when(
-                              skipError: true,
-                              skipLoadingOnRefresh: true,
-                              skipLoadingOnReload: true,
-                              data: (products) {
-                                return SizedBox(
-                                  height: 250,
-                                  child: ListView.builder(
-                                    scrollDirection: Axis.horizontal,
-                                    itemCount: products.length,
-                                    itemBuilder: (context, index) {
-                                      final product = products[index];
-                                      return Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: ProductCard(
-                                          imageUrl: product.thumbnail,
-                                          cornerText: product.formattedPrice,
-                                          heroTag: product.id,
-                                          onTap: () => Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  ProductDetailScreen(
-                                                    product: product,
-                                                  ),
-                                            ),
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                  ),
-                                );
-                              },
-                              loading: () => const Center(
-                                child: CircularProgressIndicator(),
-                              ),
-                              error: (error, stack) =>
-                                  Center(child: Text('Error loading products')),
-                            );
-                      },
+                            ),
+                          );
+                        },
+                      ),
+                    );
+                  },
+                  loading: () =>
+                      const Center(child: CircularProgressIndicator()),
+                  error: (error, stack) =>
+                      Center(child: Text('Error loading products')),
                 ),
               ],
             ),
           ),
           Padding(
             padding: const EdgeInsets.only(left: 10, top: 50),
-            child: Consumer(
-              builder: (BuildContext context, WidgetRef ref, Widget? child) {
-                return ref
-                    .read(productProvider("155"))
-                    .when(
-                      skipError: true,
-                      skipLoadingOnRefresh: true,
-                      skipLoadingOnReload: true,
-                      data: (product) {
-                        return CategoryHighlightBanner(
-                          imageUrl: product.thumbnail,
-                          headline: "New sunglasses",
-                          eyebrowLeft: "SHOP NOW",
-                          eyebrowRight: "",
-                          categorySlug: "sunglasses",
-                        );
-                      },
-                      loading: () =>
-                          const Center(child: CircularProgressIndicator()),
-                      error: (error, stack) =>
-                          Center(child: Text('Error loading product')),
-                    );
+            child: specificProductAsync.when(
+              skipError: true,
+              skipLoadingOnRefresh: true,
+              skipLoadingOnReload: true,
+              data: (product) {
+                return CategoryHighlightBanner(
+                  imageUrl: product.thumbnail,
+                  headline: "New sunglasses",
+                  eyebrowLeft: "SHOP NOW",
+                  eyebrowRight: "",
+                  categorySlug: "sunglasses",
+                );
               },
+              loading: () => Padding(
+                padding: const EdgeInsets.only(top: 50),
+                child: const Center(child: CircularProgressIndicator()),
+              ),
+              error: (error, stack) => Padding(
+                padding: const EdgeInsets.only(top: 50),
+                child: Center(child: Text('Error loading product')),
+              ),
             ),
           ),
         ],
@@ -124,7 +129,7 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildHeader() {
+  Widget _buildHeader(String user) {
     return Column(
       children: [
         Padding(
@@ -144,7 +149,7 @@ class HomeScreen extends StatelessWidget {
             baseColor: AppColors.primary,
             highlightColor: Colors.white,
             child: Text(
-              "Helena",
+              user,
               style: GoogleFonts.montserrat(
                 fontSize: 40,
                 fontWeight: FontWeight.bold,

@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:demo_shop/Controler/auth_controller.dart';
 import 'package:demo_shop/Controler/drawer_controller.dart';
 import 'package:demo_shop/Helper/logHelper.dart';
 import 'package:demo_shop/appTheme.dart';
@@ -170,13 +171,15 @@ class CustomDrawer extends ConsumerWidget {
                           item: DrawerItem.logout,
                           isSelected: false,
                           isDestructive: true,
-                          onTap: () {
+                          onTap: () async {
                             coloredLog(
                               'Drawer item selected: $DrawerItem.logout',
                               color: LogColor.yellow,
                               tag: 'CustomDrawer',
                             );
-                            notifier.selectItem(DrawerItem.logout);
+                            await ref.read(authProvider.notifier).logout();
+                            // reset drawer to home
+                            notifier.selectItem(DrawerItem.home);
                           },
                         ),
                       ],
