@@ -1,3 +1,4 @@
+import 'package:demo_shop/Controler/auth_controller.dart';
 import 'package:demo_shop/Controler/cart_controller.dart';
 import 'package:demo_shop/Helper/designHelper.dart';
 import 'package:demo_shop/Models/Cart.dart';
@@ -122,7 +123,7 @@ class CartScreen extends ConsumerWidget {
     );
 
     try {
-      // TODO: pass the real logged-in user id once you have auth wired up
+      // todo get user id
       final result = await notifier.checkout(userId: 1);
       if (!context.mounted) return;
       Navigator.of(context).pop(); // close loading dialog

@@ -1,11 +1,13 @@
+import 'package:demo_shop/Controler/favorites_controller.dart';
 import 'package:demo_shop/Models/Product.dart';
 import 'package:demo_shop/appTheme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 /// Compact product card for grid listings (e.g. category pages)
 
-class ProductCardSmall extends StatelessWidget {
+class ProductCardSmall extends ConsumerWidget {
   final Product product;
   final VoidCallback? onTap;
   final double borderRadius;
@@ -18,7 +20,10 @@ class ProductCardSmall extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final isFavorite = ref
+        .watch(favoritesProvider)
+        .any((p) => p.id == product.id);
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -45,7 +50,7 @@ class ProductCardSmall extends StatelessWidget {
                 children: [
                   Text(
                     product.title,
-                    maxLines: 2,
+                    maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: GoogleFonts.montserrat(
                       fontSize: 16,
@@ -61,17 +66,30 @@ class ProductCardSmall extends StatelessWidget {
                 ],
               ),
             ),
-            Spacer(),
-            Padding(
-              padding: const EdgeInsets.only(left: 15.0, bottom: 10),
-              child: Text(
-                product.formattedPrice,
-                style: GoogleFonts.montserrat(
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.textPrimary,
+            //Spacer(),
+            Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 15.0),
+                  child: Text(
+                    product.formattedPrice,
+                    style: GoogleFonts.montserrat(
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.textPrimary,
+                    ),
+                  ),
                 ),
-              ),
+                Spacer(),
+                IconButton(
+                  icon: Icon(
+                    isFavorite ? Icons.favorite : Icons.favorite_border,
+                    color: isFavorite ? Colors.red : Colors.white,
+                  ),
+                  onPressed: () =>
+                      ref.read(favoritesProvider.notifier).toggle(product),
+                ),
+              ],
             ),
           ],
         ),
@@ -106,7 +124,10 @@ class _StarRating extends StatelessWidget {
         const SizedBox(width: 4),
         Text(
           '($reviewCount)',
-          style: TextStyle(fontSize: 11, color: AppColors.textSecondary),
+          style: GoogleFonts.montserrat(
+            fontSize: 11,
+            color: AppColors.textSecondary,
+          ),
         ),
       ],
     );

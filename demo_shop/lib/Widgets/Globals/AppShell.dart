@@ -3,6 +3,7 @@ import 'package:demo_shop/Core/Navigation/scaffoldKey.dart';
 import 'package:demo_shop/Screens/CartScreen.dart';
 import 'package:demo_shop/Screens/CategoryScreen.dart';
 import 'package:demo_shop/Screens/HomeScreen.dart';
+import 'package:demo_shop/Screens/ProfileScreen.dart';
 import 'package:demo_shop/Screens/SearchScreen.dart';
 import 'package:demo_shop/Widgets/Globals/AppBar/CustomAppBar.dart';
 import 'package:demo_shop/Widgets/Globals/Drawer/CustomDrawer.dart';
@@ -59,7 +60,7 @@ class _CurrentPage extends StatelessWidget {
         return const CartScreen();
 
       case DrawerItem.profile:
-        return const SizedBox.shrink();
+        return const ProfileScreen();
 
       case DrawerItem.logout:
         return const SizedBox.shrink();

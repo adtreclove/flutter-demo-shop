@@ -1,5 +1,6 @@
 import 'package:demo_shop/appTheme.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ProductCard extends StatelessWidget {
   /// Network image URL. Use [imageAsset] instead if you're bundling
@@ -90,7 +91,7 @@ class ProductCard extends StatelessWidget {
               right: 12,
               child: Text(
                 cornerText,
-                style: const TextStyle(
+                style: GoogleFonts.montserrat(
                   color: Colors.white,
                   fontSize: 16,
                   fontWeight: FontWeight.w600,

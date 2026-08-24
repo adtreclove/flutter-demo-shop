@@ -137,18 +137,20 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                 child: Text(
                   'Something went wrong.\n$error',
                   textAlign: TextAlign.center,
-                  style: const TextStyle(color: AppColors.error),
+                  style: GoogleFonts.montserrat(color: AppColors.error),
                 ),
               ),
 
               data: (products) {
                 if (products.isEmpty) {
-                  return const Padding(
+                  return Padding(
                     padding: EdgeInsets.only(top: 40),
                     child: Center(
                       child: Text(
                         'No products found',
-                        style: TextStyle(color: AppColors.textSecondary),
+                        style: GoogleFonts.montserrat(
+                          color: AppColors.textSecondary,
+                        ),
                       ),
                     ),
                   );

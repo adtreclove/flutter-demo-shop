@@ -1,6 +1,8 @@
 import 'package:demo_shop/Controler/cart_controller.dart';
+import 'package:demo_shop/Controler/favorites_controller.dart';
 import 'package:demo_shop/Helper/designHelper.dart';
 import 'package:demo_shop/Models/Product.dart';
+import 'package:demo_shop/Widgets/Products/OrderOverlay.dart';
 import 'package:demo_shop/appTheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -22,13 +24,17 @@ class ProductDetailScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final isFavorite = ref
+        .watch(favoritesProvider)
+        .any((p) => p.id == product.id);
+
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(color: AppColors.background),
         child: SafeArea(
           child: Column(
             children: [
-              _buildTopBar(context),
+              _buildTopBar(context, ref),
 
               Expanded(
                 child: SingleChildScrollView(
@@ -76,7 +82,7 @@ class ProductDetailScreen extends ConsumerWidget {
                     highlightColor: AppColors.primaryLight,
                     child: Text(
                       product.formattedPrice,
-                      style: const TextStyle(
+                      style: GoogleFonts.montserrat(
                         fontSize: 30,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
@@ -95,7 +101,11 @@ class ProductDetailScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildTopBar(BuildContext context) {
+  Widget _buildTopBar(BuildContext context, WidgetRef ref) {
+    final isFavorite = ref
+        .watch(favoritesProvider)
+        .any((p) => p.id == product.id);
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       child: Row(
@@ -103,6 +113,15 @@ class ProductDetailScreen extends ConsumerWidget {
           IconButton(
             icon: const Icon(Icons.arrow_back, color: AppColors.textPrimary),
             onPressed: () => Navigator.of(context).pop(),
+          ),
+          const Spacer(),
+          IconButton(
+            icon: Icon(
+              isFavorite ? Icons.favorite : Icons.favorite_border,
+              color: isFavorite ? AppColors.error : AppColors.textPrimary,
+            ),
+            onPressed: () =>
+                ref.read(favoritesProvider.notifier).toggle(product),
           ),
         ],
       ),
@@ -128,18 +147,13 @@ class ProductDetailScreen extends ConsumerWidget {
           Expanded(
             child: SizedBox(
               height: 52,
-              child: ElevatedButton(
-                onPressed: () {
-                  // BUY NOW LOGIC
+              child: AnimatedBorderButton(
+                onPressed: () async {
+                  ref.read(cartProvider.notifier).addProduct(product);
+                  await showOrderSuccessOverlay(context, message: 'Bestellt!');
+                  if (context.mounted) Navigator.of(context).pop();
                 },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: buyButtonColor,
-                  foregroundColor: Colors.black,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(26),
-                  ),
-                  elevation: 2,
-                ),
+
                 child: Text(
                   'Buy Now',
                   style: GoogleFonts.montserrat(

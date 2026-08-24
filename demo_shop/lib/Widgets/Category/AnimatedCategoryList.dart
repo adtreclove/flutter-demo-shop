@@ -2,6 +2,7 @@ import 'package:demo_shop/Controler/category_controller.dart';
 import 'package:demo_shop/Models/ProductCategory.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class AnimatedCategoryScroller extends ConsumerStatefulWidget {
   const AnimatedCategoryScroller({super.key});
@@ -20,7 +21,7 @@ class _AnimatedCategoryScrollerState
   static const _chipHeight = 44.0;
   static const _spacing = 8.0;
   static const _edgePadding = 16.0;
-  static const _textStyle = TextStyle(
+  final _textStyle = GoogleFonts.montserrat(
     fontSize: 14,
     fontWeight: FontWeight.w500,
   );
