@@ -177,3 +177,30 @@ Run the application:
 ```
 flutter run
 ```
+
+## App Preview
+
+### Home & discovery
+
+<p align="center">
+  <img src="demo_shop/assets/screenshots/home.png" width="200"/>
+  <img src="demo_shop/assets/screenshots/drawer.png" width="200"/>
+  <img src="demo_shop/assets/screenshots/category.png" width="200"/>
+  <img src="demo_shop/assets/screenshots/search.png" width="200"/>
+</p>
+
+### Shopping
+
+<p align="center">
+  <img src="demo_shop/assets/screenshots/productDetail.png" width="200"/>
+  <img src="demo_shop/assets/screenshots/cart.png" width="200"/>
+</p>
+
+### Profile & settings
+
+<p align="center">
+  <img src="demo_shop/assets/screenshots/ProfileScreen.png" width="200"/>
+  <img src="demo_shop/assets/screenshots/settings.png" width="200"/>
+  <img src="demo_shop/assets/screenshots/myOrders.png" width="200"/>
+  <img src="demo_shop/assets/screenshots/loginScreen.png" width="200"/>
+</p>
