@@ -11,7 +11,11 @@ final categoriesProvider = FutureProvider<List<ProductCategory>>((ref) async {
       .toList();
 });
 
-final selectedCategoryProvider = StateProvider<String?>((ref) => null);
+// initial value is the first category of the selected gender
+final selectedCategoryProvider = StateProvider<String?>((ref) {
+  final categories = ref.watch(filteredCategoriesProvider).value;
+  return categories?.firstOrNull?.slug;
+});
 
 enum Gender { men, women }
 

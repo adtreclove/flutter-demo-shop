@@ -5,7 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-/// Compact product card for grid listings (e.g. category pages)
+/// Compact product card for grid listings (e.g. category pages).
+///
+/// Expects a bounded height from its parent (e.g. a grid cell). The image
+/// fills whatever space is left after the text rows, so the card adapts to
+/// different cell sizes instead of overflowing.
 
 class ProductCardSmall extends ConsumerWidget {
   final Product product;
@@ -24,6 +28,7 @@ class ProductCardSmall extends ConsumerWidget {
     final isFavorite = ref
         .watch(favoritesProvider)
         .any((p) => p.id == product.id);
+
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -36,15 +41,16 @@ class ProductCardSmall extends ConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            AspectRatio(
-              aspectRatio: 1,
+            // Takes all remaining height, so it shrinks before anything overflows.
+            Expanded(
               child: Container(
+                width: double.infinity,
                 color: AppColors.background,
                 child: Image.network(product.thumbnail, fit: BoxFit.contain),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(12, 10, 12, 12),
+              padding: const EdgeInsets.fromLTRB(12, 10, 12, 4),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -66,30 +72,38 @@ class ProductCardSmall extends ConsumerWidget {
                 ],
               ),
             ),
-            //Spacer(),
-            Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 15.0),
-                  child: Text(
-                    product.formattedPrice,
-                    style: GoogleFonts.montserrat(
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.textPrimary,
+            Padding(
+              padding: const EdgeInsets.fromLTRB(12, 0, 4, 4),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      product.formattedPrice,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: GoogleFonts.montserrat(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.textPrimary,
+                      ),
                     ),
                   ),
-                ),
-                Spacer(),
-                IconButton(
-                  icon: Icon(
-                    isFavorite ? Icons.favorite : Icons.favorite_border,
-                    color: isFavorite ? Colors.red : Colors.white,
+                  IconButton(
+                    visualDensity: VisualDensity.compact,
+                    padding: EdgeInsets.zero,
+                    constraints: const BoxConstraints.tightFor(
+                      width: 40,
+                      height: 40,
+                    ),
+                    icon: Icon(
+                      isFavorite ? Icons.favorite : Icons.favorite_border,
+                      color: isFavorite ? Colors.red : Colors.white,
+                    ),
+                    onPressed: () =>
+                        ref.read(favoritesProvider.notifier).toggle(product),
                   ),
-                  onPressed: () =>
-                      ref.read(favoritesProvider.notifier).toggle(product),
-                ),
-              ],
+                ],
+              ),
             ),
           ],
         ),
@@ -106,30 +120,35 @@ class _StarRating extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        ...List.generate(5, (index) {
-          final starValue = index + 1;
-          IconData icon;
-          if (rating >= starValue) {
-            icon = Icons.star;
-          } else if (rating >= starValue - 0.5) {
-            icon = Icons.star_half;
-          } else {
-            icon = Icons.star_border;
-          }
-          return Icon(icon, size: 14, color: AppColors.textPrimary);
-        }),
-        const SizedBox(width: 4),
-        Text(
-          '($reviewCount)',
-          style: GoogleFonts.montserrat(
-            fontSize: 11,
-            color: AppColors.textSecondary,
+    // Scales the row down instead of overflowing horizontally on narrow cards.
+    return FittedBox(
+      fit: BoxFit.scaleDown,
+      alignment: Alignment.centerLeft,
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          ...List.generate(5, (index) {
+            final starValue = index + 1;
+            IconData icon;
+            if (rating >= starValue) {
+              icon = Icons.star;
+            } else if (rating >= starValue - 0.5) {
+              icon = Icons.star_half;
+            } else {
+              icon = Icons.star_border;
+            }
+            return Icon(icon, size: 14, color: AppColors.textPrimary);
+          }),
+          const SizedBox(width: 4),
+          Text(
+            '($reviewCount)',
+            style: GoogleFonts.montserrat(
+              fontSize: 11,
+              color: AppColors.textSecondary,
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

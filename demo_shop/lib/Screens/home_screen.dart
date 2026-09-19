@@ -8,6 +8,7 @@ import 'package:demo_shop/Services/localization_service.dart';
 import 'package:demo_shop/Widgets/Products/highlighted_product_card.dart';
 import 'package:demo_shop/Widgets/Products/product_card.dart';
 import 'package:demo_shop/Widgets/Sections/bestseller_section.dart';
+import 'package:demo_shop/Widgets/Sections/section_header.dart';
 import 'package:demo_shop/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -16,165 +17,174 @@ import 'package:google_fonts/google_fonts.dart';
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
 
+  static const double _edge = 20;
+  static const double _sectionGap = 36;
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final categoryAsync = ref.watch(
       productsProvider(const ProductQuery(category: "womens-watches")),
     );
     final specificProductAsync = ref.watch(productProvider("155"));
-    final userAsync = ref.watch(authProvider);
-    String user = userAsync.when(
-      data: (user) {
-        if (user != null) {
-          return user.firstName;
-        }
-        return "";
-      },
-      error: (Object error, StackTrace stackTrace) {
-        return "";
-      },
-      loading: () {
-        return "";
-      },
-    );
+    final user = ref.watch(authProvider).value?.firstName ?? '';
 
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildHeader(user),
-          SizedBox(height: 50),
-          // New Products slidable
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 30.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 20, bottom: 15),
-                  child: Text(
-                    getIt<LocalizationService>()
-                        .localizations
-                        .home_screen_new_prod_header,
-                    textAlign: TextAlign.left,
-                    style: GoogleFonts.montserrat(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.textPrimary,
-                    ),
-                  ),
+          _HomeHeader(userName: user),
+          const SizedBox(height: 28),
+
+          // New products
+          SectionHeader(
+            getIt<LocalizationService>()
+                .localizations
+                .home_screen_new_prod_header,
+          ),
+          const SizedBox(height: 12),
+          categoryAsync.when(
+            skipError: true,
+            skipLoadingOnRefresh: true,
+            skipLoadingOnReload: true,
+            data: (products) => SizedBox(
+              height: 250,
+              child: ListView.separated(
+                scrollDirection: Axis.horizontal,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: _edge,
+                  vertical: 8,
                 ),
-                categoryAsync.when(
-                  skipError: true,
-                  skipLoadingOnRefresh: true,
-                  skipLoadingOnReload: true,
-                  data: (products) {
-                    return SizedBox(
-                      height: 250,
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: products.length,
-                        itemBuilder: (context, index) {
-                          final product = products[index];
-                          return Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: ProductCard(
-                              imageUrl: product.thumbnail,
-                              cornerText: product.formattedPrice,
-                              heroTag: product.id,
-                              onTap: () => Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      ProductDetailScreen(product: product),
-                                ),
-                              ),
-                            ),
-                          );
-                        },
+                itemCount: products.length,
+                separatorBuilder: (_, __) => const SizedBox(width: 12),
+                itemBuilder: (context, index) {
+                  final product = products[index];
+                  return ProductCard(
+                    imageUrl: product.thumbnail,
+                    title: product.title,
+                    cornerText: product.formattedPrice,
+                    heroTag: product.id,
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            ProductDetailScreen(product: product),
                       ),
-                    );
-                  },
-                  loading: () =>
-                      const Center(child: CircularProgressIndicator()),
-                  error: (error, stack) =>
-                      Center(child: Text('Error loading products')),
-                ),
-              ],
+                    ),
+                  );
+                },
+              ),
+            ),
+            loading: () => const SizedBox(
+              height: 250,
+              child: Center(child: CircularProgressIndicator()),
+            ),
+            error: (error, stack) => const SizedBox(
+              height: 250,
+              child: Center(child: Text('Error loading products')),
             ),
           ),
+
+          const SizedBox(height: _sectionGap),
+
+          // Highlight banner
           Padding(
-            padding: const EdgeInsets.only(left: 10, top: 50),
+            padding: const EdgeInsets.symmetric(horizontal: _edge),
             child: specificProductAsync.when(
               skipError: true,
               skipLoadingOnRefresh: true,
               skipLoadingOnReload: true,
-              data: (product) {
-                return CategoryHighlightBanner(
-                  imageUrl: product.thumbnail,
-                  headline: getIt<LocalizationService>()
-                      .localizations
-                      .highlight_header,
-                  eyebrowLeft: getIt<LocalizationService>()
-                      .localizations
-                      .highlight_headline,
-                  eyebrowRight: "",
-                  categorySlug: "sunglasses",
-                );
-              },
-              loading: () => Padding(
-                padding: const EdgeInsets.only(top: 50),
-                child: const Center(child: CircularProgressIndicator()),
+              data: (product) => CategoryHighlightBanner(
+                imageUrl: product.thumbnail,
+                headline:
+                    getIt<LocalizationService>().localizations.highlight_header,
+                eyebrowLeft: getIt<LocalizationService>()
+                    .localizations
+                    .highlight_headline,
+                eyebrowRight: "",
+                categorySlug: "sunglasses",
               ),
-              error: (error, stack) => Padding(
-                padding: const EdgeInsets.only(top: 50),
+              loading: () => const SizedBox(
+                height: 270,
+                child: Center(child: CircularProgressIndicator()),
+              ),
+              error: (error, stack) => const SizedBox(
+                height: 270,
                 child: Center(child: Text('Error loading product')),
               ),
             ),
           ),
 
-          Padding(
-            padding: const EdgeInsets.only(left: 10, top: 50),
-            child: const BestsellerSection(),
-          ),
+          const SizedBox(height: _sectionGap),
+
+          // Bestsellers
+          const BestsellerSection(),
           const SizedBox(height: 40),
         ],
       ),
     );
   }
+}
 
-  Widget _buildHeader(String user) {
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 50, top: 30),
-          child: Text(
+class _HomeHeader extends StatelessWidget {
+  final String userName;
+
+  const _HomeHeader({required this.userName});
+
+  @override
+  Widget build(BuildContext context) {
+    final topInset = MediaQuery.paddingOf(context).top;
+
+    return Container(
+      width: double.infinity,
+      padding: EdgeInsets.fromLTRB(
+        HomeScreen._edge,
+        topInset + 24,
+        HomeScreen._edge,
+        24,
+      ),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            AppColors.primary.withValues(alpha: 0.22),
+            AppColors.background,
+          ],
+        ),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.baseline,
+        textBaseline: TextBaseline.alphabetic,
+        children: [
+          Text(
             getGreeting(),
             style: GoogleFonts.montserrat(
+              fontSize: 20,
+              fontWeight: FontWeight.w500,
               color: AppColors.textPrimary,
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
             ),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(left: 70, bottom: 5),
-          child: ShimmerText(
-            baseColor: AppColors.primary,
-            highlightColor: Colors.white,
-            child: Text(
-              user,
-              style: GoogleFonts.montserrat(
-                fontSize: 40,
-                fontWeight: FontWeight.bold,
-                fontStyle: FontStyle.italic,
-                color: Colors
-                    .white, // must be white/opaque — ShaderMask needs full alpha to blend against
+          const SizedBox(width: 12),
+          if (userName.isNotEmpty)
+            Flexible(
+              child: ShimmerText(
+                baseColor: AppColors.primary,
+                highlightColor: Colors.white,
+                child: Text(
+                  userName,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: GoogleFonts.montserrat(
+                    fontSize: 34,
+                    fontWeight: FontWeight.bold,
+
+                    color: Colors.white,
+                  ),
+                ),
               ),
             ),
-          ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

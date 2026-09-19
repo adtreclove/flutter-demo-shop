@@ -18,17 +18,12 @@ class ProductDetailScreen extends ConsumerWidget {
   const ProductDetailScreen({
     super.key,
     required this.product,
-
     this.accentColor = AppColors.primary,
     this.buyButtonColor = Colors.white,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isFavorite = ref
-        .watch(favoritesProvider)
-        .any((p) => p.id == product.id);
-
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(color: AppColors.background),
@@ -75,6 +70,7 @@ class ProductDetailScreen extends ConsumerWidget {
                 ),
               ),
 
+              const SizedBox(height: 10),
               Row(
                 children: [
                   SizedBox(width: 30),
@@ -92,7 +88,7 @@ class ProductDetailScreen extends ConsumerWidget {
                   ),
                 ],
               ),
-              SizedBox(height: 30),
+              const SizedBox(height: 15),
 
               _buildBottomBar(context, ref),
             ],
@@ -208,9 +204,7 @@ class ProductDetailScreen extends ConsumerWidget {
 }
 
 /// Horizontally swipeable product image gallery with a dot indicator.
-/// Only the first image carries the [Hero] tag, since that's the image
-/// that was visible on the product card this screen was opened from —
-/// the flight animation only makes sense for that one.
+/// Only the first image carries the [Hero] tag
 class _ProductImageCarousel extends StatefulWidget {
   final List<String> images;
   final Object heroTag;
