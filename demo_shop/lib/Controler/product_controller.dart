@@ -1,7 +1,7 @@
 import 'package:demo_shop/Controler/ticker_controller.dart';
-import 'package:demo_shop/Models/Product.dart';
-import 'package:demo_shop/Models/ProductQuery.dart';
-import 'package:demo_shop/Services/ApiService.dart';
+import 'package:demo_shop/Models/product_model.dart';
+import 'package:demo_shop/Models/product_query_model.dart';
+import 'package:demo_shop/Services/api_service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final productsProvider = FutureProvider.family<List<Product>, ProductQuery>((

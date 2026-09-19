@@ -1,5 +1,5 @@
-import 'package:demo_shop/Models/ProductCategory.dart';
-import 'package:demo_shop/Services/ApiService.dart';
+import 'package:demo_shop/Models/product_category_model.dart';
+import 'package:demo_shop/Services/api_service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
 

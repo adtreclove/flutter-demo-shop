@@ -1,0 +1,91 @@
+{
+    "@@locale":"en",
+
+    "login_screen_header":                  "Welcome!",
+    "login_screen_username":                "Username",
+    "login_screen_password":                "Password",
+    "login_screen_text":                    "Log in to continue",
+    "login_screen_login_btn":               "Login",
+    "login_screen_error_creds":             "Login failed. Please check your credentials.",
+
+    "settings_screen_header":               "Settings",
+    "settings_screen_notifications":        "Notifications",
+    "settings_screen_push_noti":            "Push notifications",
+    "settings_screen_email_noti":           "E-Mail notifications",
+    "settings_screen_general":              "General",
+    "settings_screen_language":             "Language",
+    "settings_screen_version":              "App version",
+    "settings_screen_legal_infos":          "Legal information",
+    "settings_screen_privacy":              "Privacy",
+    "settings_screen_terms":                "Terms of Service",
+    "settings_screen_delete_acc":           "Delete account",
+
+
+    "search_screen_header":                 "Search",
+    "search_screen_hint":                   "Search products ...",
+    "search_screen_text":                   "Search for a product",
+    "search_screen_error":                  "Something went wrong",
+    "search_screen_no_products":            "No products found",
+
+
+    "profile_screen_orders":                "My orders",
+    "profile_screen_cart":                  "Cart",
+    "profile_screen_favorites":             "Favorites",
+    "profile_screen_settings":              "Settings",
+    "profile_screen_logout":                "Logout",
+
+
+    "order_screen_header":                  "My orders",
+    "order_screen_loading_error":           "Could not load orders. Try again later.",
+    "order_screen_no_orders":               "You haven't made any orders yet",
+    "order_screen_order":                   "Order #",
+    "order_screen_articles":                "articles",
+    "order_screen_products":                "products",
+
+
+    "favorite_screen_header":               "Favorites",
+    "favorite_screen_no_favorites":         "No items saved as favorites",
+
+
+    "cat_screen_women":                     "WOMEN",
+    "cat_screen_men":                       "MEN",
+
+
+    "cart_screen_empty":                    "Your cart is empty",
+    "cart_screen_total":                    "Total",
+    "cart_screen_checkout":                 "Checkout",
+
+    "highlight_header":                     "New sunglasses",
+    "highlight_headline":                   "BUY NOW",
+
+
+    "greeting_morning":                     "Good morning",
+    "greeting_afternoon":                   "Good afternoon",
+    "greeting_evening":                     "Good evening",
+    "greeting_night":                       "Good night",
+
+
+    "ordered_text":                         "Ordered!",
+    "buy_now_text":                         "Buy Now",
+    "added_to_cart_text":                   "added to cart",
+
+
+    "order_overlay_text":                   "Order placed",
+    
+
+    "bestseller_header":                    "Bestselling Must-Haves",
+    "bestseller_error":                     "Error loading bestseller",
+
+    "drawer_menu":                          "MENU",
+    "drawer_account":                       "ACCOUNT",
+    "drawer_item_home":                     "Home",
+    "drawer_item_profile":                  "Profile",
+    "drawer_item_search":                   "Search",
+    "drawer_item_cat":                      "Categories",
+    "drawer_item_cart":                     "Cart",
+    "drawer_item_logout":                   "Logout",
+
+
+
+    "error":                                "Error"
+}

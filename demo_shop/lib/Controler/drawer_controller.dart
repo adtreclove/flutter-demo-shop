@@ -1,5 +1,5 @@
-import 'package:demo_shop/Core/Navigation/scaffoldKey.dart';
-import 'package:demo_shop/Helper/logHelper.dart';
+import 'package:demo_shop/Core/Navigation/scaffold_key.dart';
+import 'package:demo_shop/Helper/log_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/legacy.dart';
 

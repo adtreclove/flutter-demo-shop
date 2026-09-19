@@ -1,0 +1,94 @@
+{
+    "@@locale":"de",
+
+    "login_screen_header":                  "Willkommen!",
+    "login_screen_username":                "Benutzername",
+    "login_screen_password":                "Passwort",
+    "login_screen_text":                    "Logge dich ein, um fortzufahren",
+    "login_screen_login_btn":               "Login",
+    "login_screen_error_creds":             "Login fehlgeschlagen. Bitte Zugangsdaten prüfen",
+
+
+    "settings_screen_header":               "Einstellungen",
+    "settings_screen_notifications":        "Benachrichtigungen",
+    "settings_screen_push_noti":            "Push-Nachrichten",
+    "settings_screen_email_noti":           "E-Mail Benachrichtigungen",
+    "settings_screen_general":              "Allgemein",
+    "settings_screen_language":             "Sprache",
+    "settings_screen_version":              "App Version",
+    "settings_screen_legal_infos":          "Rechtliche Informationen",
+    "settings_screen_privacy":              "Privatsphäre",
+    "settings_screen_terms":                "Allgemeine Geschäftsbedingungen",
+    "settings_screen_delete_acc":           "Account löschen",
+
+
+    "search_screen_header":                 "Suchen",
+    "search_screen_hint":                   "Produkte suchen...",
+    "search_screen_text":                   "Nach einem Produkt suchen",
+    "search_screen_error":                  "Etwas ist schief gelaufen",
+    "search_screen_no_products":            "Keine Produkte gefunden",
+
+
+    "profile_screen_orders":                "Meine Bestellungen",
+    "profile_screen_cart":                  "Warenkorb",
+    "profile_screen_favorites":             "Favoriten",
+    "profile_screen_settings":              "Einstellungen",
+    "profile_screen_logout":                "Abmelden",
+
+
+    "order_screen_header":                  "Meine Bestellungen",
+    "order_screen_loading_error":           "Fehler beim Laden der Bestellungen. Versuche es später erneut.",
+    "order_screen_no_orders":               "Du hast noch keine Bestellungen aufgegeben",
+    "order_screen_order":                   "Bestellung #",
+    "order_screen_articles":                "Artikel",
+    "order_screen_products":                "Produkte",
+
+
+    "favorite_screen_header":               "Favoriten",
+    "favorite_screen_no_favorites":         "Keine Produkte favoritisiert.",
+
+
+    "cat_screen_women":                     "FRAUEN",
+    "cat_screen_men":                       "MÄNNER",
+
+
+    "cart_screen_empty":                    "Dein Einkaufswagen ist leer.",
+    "cart_screen_total":                    "Gesamt",
+    "cart_screen_checkout":                 "Zur Kasse",
+
+
+    "home_screen_new_prod_header":          "Entdecke neue Produkte",
+    "home_screen_loading_error":            "Fehler beim Laden der Produkte",
+
+    "highlight_header":                     "Sonnenbrillen",
+    "highlight_headline":                   "JETZT KAUFEN",
+
+
+    "greeting_morning":                     "Guten Morgen",
+    "greeting_afternoon":                   "Guten Tag",
+    "greeting_evening":                     "Guten Abend",
+    "greeting_night":                       "Gute Nacht",
+
+
+    "ordered_text":                         "Bestellt!",
+    "buy_now_text":                         "Jetzt kaufen",
+    "added_to_cart_text":                   "zum Warenkorb hinzugefügt",
+
+    "order_overlay_text":                   "Bestellung aufgegeben",
+
+    "bestseller_header":                    "Bestselling Must-Haves",
+    "bestseller_error":                     "Fehler bei Laden der Bestseller",
+
+
+    "drawer_menu":                          "MENÜ",
+    "drawer_account":                       "ACCOUNT",
+    "drawer_item_home":                     "Startseite",
+    "drawer_item_profile":                  "Profil",
+    "drawer_item_search":                   "Suchen",
+    "drawer_item_cat":                      "Kategorien",
+    "drawer_item_cart":                     "Warenkorb",
+    "drawer_item_logout":                   "Abmelden",
+
+
+    "error":                                "Fehler"
+}
