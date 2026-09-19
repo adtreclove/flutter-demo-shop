@@ -1,11 +1,11 @@
-import 'package:demo_shop/Models/AuthUser.dart';
-import 'package:demo_shop/Services/ApiService.dart';
+import 'package:demo_shop/Models/user_model.dart';
+import 'package:demo_shop/Services/api_service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// null = logged out
-class AuthNotifier extends StateNotifier<AsyncValue<AuthUser?>> {
+class AuthNotifier extends StateNotifier<AsyncValue<User?>> {
   AuthNotifier() : super(const AsyncValue.loading()) {
     _tryRestoreSession();
   }
@@ -28,7 +28,7 @@ class AuthNotifier extends StateNotifier<AsyncValue<AuthUser?>> {
       ApiService.instance.setAuthToken(token);
 
       final response = await ApiService.instance.get('/auth/me');
-      final user = AuthUser.fromJson({
+      final user = User.fromJson({
         ...response as Map<String, dynamic>,
         'accessToken': token,
         'refreshToken': refreshToken ?? '',
@@ -59,7 +59,7 @@ class AuthNotifier extends StateNotifier<AsyncValue<AuthUser?>> {
         body: {'username': username, 'password': password, 'expiresInMins': 60},
       );
 
-      final user = AuthUser.fromJson(response as Map<String, dynamic>);
+      final user = User.fromJson(response as Map<String, dynamic>);
 
       ApiService.instance.setAuthToken(user.accessToken);
       await _persistToken(user.accessToken, user.refreshToken);
@@ -93,7 +93,7 @@ class AuthNotifier extends StateNotifier<AsyncValue<AuthUser?>> {
   }
 }
 
-final authProvider = StateNotifierProvider<AuthNotifier, AsyncValue<AuthUser?>>(
+final authProvider = StateNotifierProvider<AuthNotifier, AsyncValue<User?>>(
   (ref) => AuthNotifier(),
 );
 
