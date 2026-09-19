@@ -57,6 +57,10 @@
     "cart_screen_total":                    "Total",
     "cart_screen_checkout":                 "Checkout",
 
+
+    "home_screen_new_prod_header":          "Discover new products",
+    "home_screen_loading_error":            "Error loading new products",
+
     "highlight_header":                     "New sunglasses",
     "highlight_headline":                   "BUY NOW",
 
@@ -86,7 +90,6 @@
     "drawer_item_cat":                      "Categories",
     "drawer_item_cart":                     "Cart",
     "drawer_item_logout":                   "Logout",
-
 
 
     "error":                                "Error"

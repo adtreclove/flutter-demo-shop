@@ -1,6 +1,1 @@
-{
-  "en": [
-    "home_screen_new_prod_header",
-    "home_screen_loading_error"
-  ]
-}
+{}

@@ -139,10 +139,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get cart_screen_checkout => 'Checkout';
 
   @override
-  String get home_screen_new_prod_header => 'Entdecke neue Produkte';
+  String get home_screen_new_prod_header => 'Discover new products';
 
   @override
-  String get home_screen_loading_error => 'Fehler beim Laden der Produkte';
+  String get home_screen_loading_error => 'Error loading new products';
 
   @override
   String get highlight_header => 'New sunglasses';
