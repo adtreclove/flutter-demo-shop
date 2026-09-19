@@ -131,8 +131,20 @@ abstract class AppLocalizations {
   /// No description provided for @login_screen_error_creds.
   ///
   /// In de, this message translates to:
-  /// **'Login fehlgeschlagen. Bitte Zugangsdaten prüfen'**
+  /// **'Zugangsdaten falsch, versuche es bitte erneut.'**
   String get login_screen_error_creds;
+
+  /// No description provided for @login_screen_error_missing.
+  ///
+  /// In de, this message translates to:
+  /// **'Bitte gib deinen Benutzernamen und dein Passwort ein.'**
+  String get login_screen_error_missing;
+
+  /// No description provided for @login_screen_error_generic.
+  ///
+  /// In de, this message translates to:
+  /// **'Etwas ist schiefgelaufen. Bitte überprüfe deine Verbindung und versuche es erneut.'**
+  String get login_screen_error_generic;
 
   /// No description provided for @settings_screen_header.
   ///

@@ -25,7 +25,15 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get login_screen_error_creds =>
-      'Login failed. Please check your credentials.';
+      'Credentials are wrong, please try again.';
+
+  @override
+  String get login_screen_error_missing =>
+      'Please enter your username and password.';
+
+  @override
+  String get login_screen_error_generic =>
+      'Something went wrong. Please check your connection and try again.';
 
   @override
   String get settings_screen_header => 'Settings';

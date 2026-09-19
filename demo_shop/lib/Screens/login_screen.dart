@@ -19,6 +19,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   bool _obscurePassword = true;
   bool _isLoading = false;
 
+  /// The last failed login attempt, or null if there is nothing to show.
+  LoginResult? _error;
+
   @override
   void dispose() {
     _usernameController.dispose();
@@ -26,42 +29,47 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     super.dispose();
   }
 
-  Future<void> _handleLogin() async {
-    bool success = false;
+  void _clearError() {
+    if (_error != null) setState(() => _error = null);
+  }
 
+  Future<void> _handleLogin() async {
     setState(() {
       _isLoading = true;
+      _error = null;
     });
-    try {
-      success = await ref
-          .read(authProvider.notifier)
-          .login(
-            username: _usernameController.text.trim(),
-            password: _passwordController.text,
-          );
-    } catch (e) {
-      setState(() {
-        _isLoading = false;
-        success = false;
-      });
-      return;
-    }
 
-    // guard: if login succeeded, authProvider's state just
-    // changed, which causes MyApp to swap this screen out for AppShell
-    // — this widget may already be disposed by the time we get here.
-    // Calling setState after that would throw.
+    final result = await ref
+        .read(authProvider.notifier)
+        .login(
+          username: _usernameController.text.trim(),
+          password: _passwordController.text,
+        );
+
+    // Guard: if login succeeded, authProvider's state just changed, which
+    // causes MyApp to swap this screen out for AppShell. This widget may
+    // already be disposed, and calling setState then would throw.
     if (!mounted) return;
 
     setState(() {
       _isLoading = false;
-      success = success;
+      _error = result == LoginResult.success ? null : result;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    final authState = ref.watch(authProvider);
+    ref.watch(authProvider);
+
+    final errorText = switch (_error) {
+      LoginResult.missingCredentials =>
+        getIt<LocalizationService>().localizations.login_screen_error_missing,
+      LoginResult.invalidCredentials =>
+        getIt<LocalizationService>().localizations.login_screen_error_creds,
+      LoginResult.unexpectedError =>
+        getIt<LocalizationService>().localizations.login_screen_error_generic,
+      _ => null,
+    };
 
     return Scaffold(
       backgroundColor: AppColors.background,
@@ -93,6 +101,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
               TextField(
                 controller: _usernameController,
+                onChanged: (_) => _clearError(),
                 decoration: InputDecoration(
                   labelText: getIt<LocalizationService>()
                       .localizations
@@ -119,6 +128,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               TextField(
                 controller: _passwordController,
                 obscureText: _obscurePassword,
+                onChanged: (_) => _clearError(),
                 decoration: InputDecoration(
                   labelText: getIt<LocalizationService>()
                       .localizations
@@ -150,12 +160,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 ),
               ),
 
-              if (authState.hasError) ...[
+              if (errorText != null) ...[
                 const SizedBox(height: 12),
                 Text(
-                  getIt<LocalizationService>()
-                      .localizations
-                      .login_screen_error_creds,
+                  errorText,
                   style: GoogleFonts.montserrat(
                     color: AppColors.error,
                     fontSize: 13,

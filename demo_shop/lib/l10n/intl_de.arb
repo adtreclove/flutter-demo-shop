@@ -6,7 +6,9 @@
     "login_screen_password":                "Passwort",
     "login_screen_text":                    "Logge dich ein, um fortzufahren",
     "login_screen_login_btn":               "Login",
-    "login_screen_error_creds":             "Login fehlgeschlagen. Bitte Zugangsdaten prüfen",
+    "login_screen_error_creds":             "Zugangsdaten falsch, versuche es bitte erneut.",
+    "login_screen_error_missing":           "Bitte gib deinen Benutzernamen und dein Passwort ein.",
+    "login_screen_error_generic":           "Etwas ist schiefgelaufen. Bitte überprüfe deine Verbindung und versuche es erneut.",
 
 
     "settings_screen_header":               "Einstellungen",

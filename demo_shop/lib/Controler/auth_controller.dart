@@ -4,6 +4,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+enum LoginResult {
+  success,
+  missingCredentials,
+  invalidCredentials,
+  unexpectedError,
+}
+
 /// null = logged out
 class AuthNotifier extends StateNotifier<AsyncValue<User?>> {
   AuthNotifier() : super(const AsyncValue.loading()) {
@@ -43,16 +50,14 @@ class AuthNotifier extends StateNotifier<AsyncValue<User?>> {
     }
   }
 
-  /// Returns true on success, false on failure. Deliberately does NOT
-  /// set `state = AsyncValue.loading()` while the request is in flight —
-  /// since MyApp watches this provider to decide whether to show
-  /// LoginScreen or AppShell, flipping to loading mid-request would
-  /// unmount LoginScreen (and this exact login() call along with it)
-  /// before the request even finishes.
-  Future<bool> login({
+  Future<LoginResult> login({
     required String username,
     required String password,
   }) async {
+    if (username.isEmpty || password.isEmpty) {
+      return LoginResult.missingCredentials;
+    }
+
     try {
       final response = await ApiService.instance.post(
         '/auth/login',
@@ -64,13 +69,15 @@ class AuthNotifier extends StateNotifier<AsyncValue<User?>> {
       ApiService.instance.setAuthToken(user.accessToken);
       await _persistToken(user.accessToken, user.refreshToken);
 
-      // Only touch state on success — this is the one point where it's
-      // safe for the root widget to swap away from LoginScreen, since
-      // the request is fully done by now.
+      // Only touch state on success, since this is the one point where it's
+      // safe for the root widget to swap away from LoginScreen.
       state = AsyncValue.data(user);
-      return true;
+      return LoginResult.success;
+    } on ApiException {
+      return LoginResult.invalidCredentials;
     } catch (_) {
-      return false;
+      // No connection, timeout, unexpected response format, etc.
+      return LoginResult.unexpectedError;
     }
   }
 
@@ -98,8 +105,7 @@ final authProvider = StateNotifierProvider<AuthNotifier, AsyncValue<User?>>(
 );
 
 /// Convenience: quick sync check for whether someone is logged in,
-/// without having to unwrap AsyncValue everywhere (e.g. in a drawer to
-/// conditionally show "Login" vs "Logout").
+/// without having to unwrap AsyncValue everywhere
 final isLoggedInProvider = Provider<bool>((ref) {
   return ref.watch(authProvider).value != null;
 });

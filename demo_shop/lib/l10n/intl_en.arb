@@ -6,7 +6,9 @@
     "login_screen_password":                "Password",
     "login_screen_text":                    "Log in to continue",
     "login_screen_login_btn":               "Login",
-    "login_screen_error_creds":             "Login failed. Please check your credentials.",
+    "login_screen_error_creds":             "Credentials are wrong, please try again.",
+    "login_screen_error_missing":           "Please enter your username and password.",
+    "login_screen_error_generic":           "Something went wrong. Please check your connection and try again.",
 
     "settings_screen_header":               "Settings",
     "settings_screen_notifications":        "Notifications",

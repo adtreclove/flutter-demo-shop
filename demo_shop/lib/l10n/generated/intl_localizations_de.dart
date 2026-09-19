@@ -25,7 +25,15 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get login_screen_error_creds =>
-      'Login fehlgeschlagen. Bitte Zugangsdaten prüfen';
+      'Zugangsdaten falsch, versuche es bitte erneut.';
+
+  @override
+  String get login_screen_error_missing =>
+      'Bitte gib deinen Benutzernamen und dein Passwort ein.';
+
+  @override
+  String get login_screen_error_generic =>
+      'Etwas ist schiefgelaufen. Bitte überprüfe deine Verbindung und versuche es erneut.';
 
   @override
   String get settings_screen_header => 'Einstellungen';
