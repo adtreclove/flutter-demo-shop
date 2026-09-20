@@ -44,13 +44,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = getIt<LocalizationService>().localizations;
-
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
         title: Text(
-          l10n.settings_screen_header,
+          getIt<LocalizationService>().localizations.settings_screen_header,
           style: GoogleFonts.montserrat(),
         ),
         backgroundColor: Colors.transparent,
@@ -60,24 +58,32 @@ class _SettingsScreenState extends State<SettingsScreen> {
       body: ListView(
         padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
         children: [
-          _SectionHeader(l10n.settings_screen_notifications),
+          _SectionHeader(
+            getIt<LocalizationService>()
+                .localizations
+                .settings_screen_notifications,
+          ),
           SwitchListTile(
             value: _pushNotifications,
             onChanged: (value) => setState(() => _pushNotifications = value),
             title: Text(
-              l10n.settings_screen_push_noti,
+              getIt<LocalizationService>()
+                  .localizations
+                  .settings_screen_push_noti,
               style: GoogleFonts.montserrat(),
             ),
-            activeColor: AppColors.primary,
+            activeThumbColor: AppColors.primary,
           ),
           SwitchListTile(
             value: _emailNotifications,
             onChanged: (value) => setState(() => _emailNotifications = value),
             title: Text(
-              l10n.settings_screen_email_noti,
+              getIt<LocalizationService>()
+                  .localizations
+                  .settings_screen_email_noti,
               style: GoogleFonts.montserrat(),
             ),
-            activeColor: AppColors.primary,
+            activeThumbColor: AppColors.primary,
           ),
 
           const SizedBox(height: 12),
@@ -85,7 +91,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ListTile(
             leading: const Icon(Icons.language),
             title: Text(
-              l10n.settings_screen_language,
+              getIt<LocalizationService>()
+                  .localizations
+                  .settings_screen_language,
               style: GoogleFonts.montserrat(),
             ),
             trailing: DropdownButton<Language>(
@@ -109,7 +117,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ListTile(
             leading: const Icon(Icons.info_outline),
             title: Text(
-              l10n.settings_screen_version,
+              getIt<LocalizationService>()
+                  .localizations
+                  .settings_screen_version,
               style: GoogleFonts.montserrat(),
             ),
             trailing: Text(
@@ -119,11 +129,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ),
 
           const SizedBox(height: 12),
-          _SectionHeader(l10n.settings_screen_legal_infos),
+          _SectionHeader(
+            getIt<LocalizationService>()
+                .localizations
+                .settings_screen_legal_infos,
+          ),
           ListTile(
             leading: const Icon(Icons.privacy_tip_outlined),
             title: Text(
-              l10n.settings_screen_privacy,
+              getIt<LocalizationService>()
+                  .localizations
+                  .settings_screen_privacy,
               style: GoogleFonts.montserrat(),
             ),
             trailing: const Icon(Icons.chevron_right, size: 20),
@@ -134,7 +150,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ListTile(
             leading: const Icon(Icons.description_outlined),
             title: Text(
-              l10n.settings_screen_terms,
+              getIt<LocalizationService>().localizations.settings_screen_terms,
               style: GoogleFonts.montserrat(),
             ),
             trailing: const Icon(Icons.chevron_right, size: 20),
@@ -152,7 +168,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
               },
               style: TextButton.styleFrom(foregroundColor: AppColors.error),
               child: Text(
-                l10n.settings_screen_delete_acc,
+                getIt<LocalizationService>()
+                    .localizations
+                    .settings_screen_delete_acc,
                 style: GoogleFonts.montserrat(),
               ),
             ),

@@ -208,7 +208,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
               const SizedBox(height: 16),
               Padding(
-                padding: const EdgeInsets.only(left: 30),
+                padding: const EdgeInsets.only(left: 20),
                 child: Text(
                   'INFORMATION: Test-Login: emilys / emilyspass\n(or any other login data from dummyjson.com/users)',
                   textAlign: TextAlign.center,

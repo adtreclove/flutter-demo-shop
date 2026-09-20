@@ -176,10 +176,7 @@ class ProductDetailScreen extends ConsumerWidget {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: Text(
-                      product.title +
-                          getIt<LocalizationService>()
-                              .localizations
-                              .added_to_cart_text,
+                      "${product.title} ${getIt<LocalizationService>().localizations.added_to_cart_text}",
                     ),
                   ),
                 );
