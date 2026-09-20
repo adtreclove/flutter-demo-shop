@@ -35,6 +35,7 @@ ALGO is a portfolio project focused on building a complete mobile shopping exper
 
 - Mock application settings
 - Mock Legal information
+- Realtime language setting (german, english)
 
 ### 🎨 UI / UX
 
